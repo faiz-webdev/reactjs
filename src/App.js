@@ -12,8 +12,8 @@ function App() {
       {/* <Navbar title="TeXtUtils" aboutText="About website" /> */}
       <Navbar title="TextUtils" />
       <div className="container my-3">
-        {/* <TextForm heading='Enter the text below' /> */}
-        <About />
+        <TextForm heading='Enter the text below' />
+        {/* <About /> */}
       </div>
     </>
   );

@@ -19,6 +19,18 @@ export default function TextForm(props) {
     setText(event.target.value);
   };
 
+  const copyText = () => {
+    let text = document.getElementById("myBox");
+    text.select();
+    text.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(text.value);
+  };
+
+  const removeSpace = () => {
+    let newText = text.split(/[ ]+/);
+    setText(newText.join(" "));
+  };
+
   return (
     <>
       <div className="container">
@@ -38,11 +50,19 @@ export default function TextForm(props) {
         <button className="btn btn-primary mx-2" onClick={handleLoClick}>
           Convert to LowerCase
         </button>
+        <button className="btn btn-primary mx-2" onClick={copyText}>
+          Copy Text
+        </button>
+        <button className="btn btn-primary mx-2" onClick={removeSpace}>
+          Remove extra spaces
+        </button>
       </div>
       <div className="container my-3">
         <h1>Your text summary</h1>
-        <p>{text.split(' ').length} words and {text.length} characters</p>
-        <p>{0.008 * text.split(' ').length} Minutes read</p>
+        <p>
+          {text.split(" ").length} words and {text.length} characters
+        </p>
+        <p>{0.008 * text.split(" ").length} Minutes read</p>
         <h2>Preview</h2>
         <p>{text}</p>
       </div>
