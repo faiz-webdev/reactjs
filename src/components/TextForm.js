@@ -27,6 +27,7 @@ export default function TextForm(props) {
     text.select();
     text.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(text.value);
+    document.getSelection().removeAllRanges();
 
     props.showAlert("Copied to clipboard!", "success");
   };
@@ -53,21 +54,21 @@ export default function TextForm(props) {
             value={text}
             onChange={handleOnChange}
             style={{
-              backgroundColor: props.mode === "dark" ? "gray" : "white",
+              backgroundColor: props.mode === "dark" ? "#13466e" : "white",
               color: props.mode === "dark" ? "white" : "#042743",
             }}
           ></textarea>
         </div>
-        <button className="btn btn-primary mx-2" onClick={handleUpClick}>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={handleUpClick}>
           Convert to Uppercase
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleLoClick}>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={handleLoClick}>
           Convert to LowerCase
         </button>
-        <button className="btn btn-primary mx-2" onClick={copyText}>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={copyText}>
           Copy Text
         </button>
-        <button className="btn btn-primary mx-2" onClick={removeSpace}>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={removeSpace}>
           Remove extra spaces
         </button>
       </div>
@@ -77,14 +78,15 @@ export default function TextForm(props) {
       >
         <h1>Your text summary</h1>
         <p>
-          {text.split(" ").length} words and {text.length} characters
+          {text.split(" ").filter((el) => el.length !== 0).length} words and{" "}
+          {text.length} characters
         </p>
-        <p>{0.008 * text.split(" ").length} Minutes read</p>
+        <p>{0.008 * text.split(" ").filter((el) => el.length !== 0).length} Minutes read</p>
         <h2>Preview</h2>
         <p>
           {text.length > 0
             ? text
-            : "Enter something in the textbox above to preview it here"}
+            : "Nothing to preview"}
         </p>
       </div>
     </>

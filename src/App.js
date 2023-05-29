@@ -23,7 +23,18 @@ function App() {
     }, 1500);
   };
 
-  const toggleMode = () => {
+  const removeBodyClasses = () => {
+    document.body.classList.remove("bg-light");
+    document.body.classList.remove("bg-dark");
+    document.body.classList.remove("bg-warning");
+    document.body.classList.remove("bg-danger");
+    document.body.classList.remove("bg-success");
+  };
+
+  const toggleMode = (cls) => {
+    console.log(cls);
+    removeBodyClasses();
+    document.body.classList.add(`bg-${cls}`);
     if (mode === "dark") {
       setMode("light");
       document.body.style.backgroundColor = "white";
@@ -40,11 +51,16 @@ function App() {
     <>
       {/* <Navbar title="TeXtUtils" aboutText="About website" /> */}
       <Router>
-        <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} aboutText="About" />
+        <Navbar
+          title="TextUtils"
+          mode={mode}
+          toggleMode={toggleMode}
+          aboutText="About"
+        />
         <Alert alert={alert} />
         <div className="container my-3">
           <Routes>
-            <Route exact path="/about" element={<About />} />
+            <Route exact path="/about" element={<About mode={mode} />} />
             <Route
               path="/"
               element={
